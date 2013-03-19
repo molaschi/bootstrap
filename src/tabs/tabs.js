@@ -2,11 +2,15 @@ angular.module('ui.bootstrap.tabs', [])
 .controller('TabsController', ['$scope', '$element', function($scope, $element) {
   var panes = $scope.panes = [];
 
-  this.select = $scope.select = function selectPane(pane) {
+  this.select = $scope.select = function selectPane(pane, $event) {
     angular.forEach(panes, function(pane) {
       pane.selected = false;
     });
     pane.selected = true;
+    if(arguments.length > 1 && $event) {
+      $event.preventDefault();
+      $event.stopPropagation();
+    }
   };
 
   this.addPane = function addPane(pane) {
